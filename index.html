@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+body{
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3,#ff9a9e,#fad0c4);
+  background-size:400% 400%;
+  animation:bgMove 12s ease infinite;
+  color:white;
+  text-align:center;
+  overflow:hidden;
+  cursor:url('https://i.ibb.co/0FZB8wP/heart-cursor.png'), auto;
+}
+@keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;}
+.hidden{display:none;}
+h1{font-size:clamp(35px,6vw,60px);margin-bottom:20px;}
+h2{font-size:clamp(28px,5vw,40px);margin-bottom:20px;}
+p{font-size:clamp(16px,3vw,20px);max-width:600px;}
+button{margin-top:30px;padding:15px 35px;border:none;border-radius:30px;background:#ff5e78;color:white;font-size:18px;cursor:pointer;transition:.3s;}
+button:hover{transform:scale(1.05);background:#ff3c5f;}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:30px;width:100%;max-width:1100px;}
+.gallery-item{aspect-ratio:3/4;overflow:hidden;border-radius:16px;transition:.4s;background:white;padding:5px;position:relative;}
+.gallery-item img,.gallery-item video{width:100%;height:100%;object-fit:cover;transition:.4s;border-radius:12px;cursor:pointer;}
+.gallery-item:hover{transform:translateY(-8px);box-shadow:0 15px 35px rgba(0,0,0,0.4);}
+.gallery-item:hover img,.gallery-item:hover video{transform:scale(1.1);}
+/* heart pulse overlay on image hover */
+.gallery-item::after{
+  content:'❤️';
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  font-size:40px;
+  opacity:0;
+  transition:all 0.4s ease;
+}
+.gallery-item:hover::after{transform:translate(-50%,-50%) scale(1);opacity:1;}
+
+/* message */
+.message{max-width:700px;background:rgba(255,255,255,0.15);padding:30px;border-radius:15px;line-height:1.6;position:relative;}
+
+/* floating hearts */
+.heart{position:fixed;bottom:-20px;color:red;animation:float 6s linear infinite;font-size:20px;}
+@keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-110vh);opacity:0}}
+
+/* confetti */
+.confetti{position:fixed;width:10px;height:10px;top:-10px;animation:confettiFall 3s linear forwards;z-index:999;}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* birthday popup */
+.birthdayPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:55px;font-weight:bold;text-align:center;background:rgba(0,0,0,0.35);padding:25px 45px;border-radius:20px;backdrop-filter:blur(10px);animation:popup 3s ease forwards;z-index:9999;}
+@keyframes popup{0%{opacity:0;transform:translate(-50%,-60%) scale(0.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}80%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-40%) scale(0.9)}}
+
+/* sparkles */
+.sparkle{position:fixed;color:white;font-size:12px;animation:sparkle 2s linear forwards;}
+@keyframes sparkle{0%{opacity:1;transform:scale(0)}100%{opacity:0;transform:scale(2)}}
+
+/* floating words */
+.word{position:fixed;font-weight:bold;animation:floatWord 5s linear forwards;}
+@keyframes floatWord{0%{transform:translateY(0) scale(0.6);opacity:1}100%{transform:translateY(-110vh) scale(1.2);opacity:0}}
+
+/* final ending */
+.finalPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:bold;text-align:center;background:rgba(0,0,0,0.35);padding:25px 45px;border-radius:20px;backdrop-filter:blur(10px);animation:pulseHeart 3s ease forwards;z-index:9999;}
+@keyframes pulseHeart{0%{transform:translate(-50%,-50%) scale(0.8);opacity:0}50%{transform:translate(-50%,-50%) scale(1.1);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
+
+/* balloons */
+.balloon{position:fixed;bottom:-100px;border-radius:50%;width:40px;height:55px;animation:floatBalloon linear infinite;}
+@keyframes floatBalloon{0%{transform:translateY(0) rotate(0deg)}100%{transform:translateY(-120vh) rotate(360deg)}}
+
+/* twinkling stars */
+.star{position:fixed;color:white;font-size:3px;animation:twinkle 2s infinite alternate;}
+@keyframes twinkle{0%{opacity:0}100%{opacity:1}}
+</style>
+</head>
+<body>
+
+<!-- MUSIC -->
+<audio id="birthdayMusic" loop>
+<source src="birthday.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FIRST SCREEN -->
+<section>
+<h1>Happy Birthday Reinu ❤️</h1>
+<p>Today is all about celebrating you and the happiness you bring into my life.</p>
+<button onclick="startCelebration()">Shall We Please? 🎉</button>
+</section>
+
+<!-- MEMORIES -->
+<section id="memories" class="hidden">
+<h2>Our Memories 📸</h2>
+<div class="gallery">
+<div class="gallery-item"><img src="img1.jpeg"></div>
+<div class="gallery-item"><img src="img2.jpeg"></div>
+<div class="gallery-item"><img src="img3.jpeg"></div>
+<div class="gallery-item"><img src="img4.jpeg"></div>
+<div class="gallery-item"><img src="img5.jpeg"></div>
+<div class="gallery-item"><img src="img6.jpeg"></div>
+<div class="gallery-item"><img src="img7.jpeg"></div>
+<div class="gallery-item"><img src="img8.jpeg"></div>
+<div class="gallery-item"><img src="img9.jpeg"></div>
+<div class="gallery-item"><img src="img10.jpeg"></div>
+<div class="gallery-item"><img src="img11.jpeg"></div>
+<div class="gallery-item"><img src="img12.jpeg"></div>
+<div class="gallery-item"><img src="img13.jpeg"></div>
+<div class="gallery-item"><img src="img14.jpeg"></div>
+<div class="gallery-item"><img src="img15.jpeg"></div>
+<div class="gallery-item"><video autoplay muted loop playsinline><source src="snap.mp4" type="video/mp4"></video></div>
+</div>
+<br>
+<button onclick="openMessage()">A Wish 💌</button>
+</section>
+
+<!-- MESSAGE -->
+<section id="message" class="hidden">
+<h2>Something From My Heart ❤️</h2>
+<div class="message">
+<p id="typedMessage"></p>
+<button onclick="specialSurprise()">A Little Surprise 🎁</button>
+</div>
+</section>
+
+<script>
+/* start celebration */
+function startCelebration(){
+document.body.style.overflow="auto";
+document.getElementById("birthdayMusic").play();
+
+/* popup */
+const popup=document.createElement("div");
+popup.className="birthdayPopup";
+popup.innerHTML="Happy Birthday Cutie ❤️";
+document.body.appendChild(popup);
+setTimeout(()=>{popup.remove();},3000);
+
+/* confetti */
+const colors=["#ff4d6d","#ffbe0b","#3a86ff","#ff006e","#8338ec","#fb5607"];
+for(let i=0;i<150;i++){
+const confetti=document.createElement("div");
+confetti.className="confetti";
+confetti.style.left=Math.random()*100+"vw";
+confetti.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+confetti.style.animationDelay=Math.random()*0.5+"s";
+document.body.appendChild(confetti);
+setTimeout(()=>{confetti.remove();},3000);
+}
+
+/* show memories */
+const memories=document.getElementById("memories");
+memories.classList.remove("hidden");
+memories.scrollIntoView({behavior:"smooth"});
+
+/* create balloons */
+for(let i=0;i<15;i++){
+const balloon=document.createElement("div");
+balloon.className="balloon";
+balloon.style.left=Math.random()*100+"vw";
+balloon.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+balloon.style.width=(30+Math.random()*20)+"px";
+balloon.style.height=(40+Math.random()*25)+"px";
+balloon.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(balloon);
+setTimeout(()=>{balloon.remove();},10000);
+}
+
+/* create twinkling stars */
+for(let i=0;i<50;i++){
+const star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"vh";
+star.style.left=Math.random()*100+"vw";
+star.style.animationDuration=(1+Math.random()*2)+"s";
+document.body.appendChild(star);
+}
+}
+
+/* open message */
+function openMessage(){
+const message=document.getElementById("message");
+message.classList.remove("hidden");
+message.scrollIntoView({behavior:"smooth"});
+
+/* typewriter effect */
+const fullMessage=`Happiest Birthday 🎉🥳🎉 My Cutiest Penguin ❤️
+Your smile makes everything brighter and your presence makes every moment special.
+Thank you so much for being such a beautiful soul and my bestie ❤️
+I hope this year brings endless Happiness, Success, and Love for my Reinu 👑
+May You achieve everything you ever wished for and may this bond always stay much more stronger and we always stay together ❤️
+Once again wishing you a Happiest Birthday 🎉🥳🎉
+Have a good one cutie ❤️
+— Your Annoying Bestie who is really Happy for you and cares about you a lot ❤️`;
+
+let i=0;
+const typed=document.getElementById("typedMessage");
+typed.innerHTML="";
+function typeWriter(){
+if(i<fullMessage.length){
+typed.innerHTML+=fullMessage.charAt(i)=="\n"?"<br>":fullMessage.charAt(i);
+i++;
+setTimeout(typeWriter,35);
+}
+}
+typeWriter();
+}
+
+/* floating hearts */
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+10)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>{heart.remove();},6000);
+}
+setInterval(createHeart,300);
+
+/* floating cute words */
+const words=["Happy Birthday Bestie 💖","Happy Birthday Penguin 🐧","Smile ✨","Happy Birthday Bestie Forever 🤍","Happy Birthday Cutie ❤️","Happy Birth Day Reinu 👑"];
+function createWord(){
+const word=document.createElement("div");
+word.classList.add("word");
+word.innerHTML=words[Math.floor(Math.random()*words.length)];
+word.style.left=Math.random()*100+"vw";
+word.style.fontSize=(Math.random()*20+12)+"px";
+word.style.color=colors[Math.floor(Math.random()*colors.length)];
+document.body.appendChild(word);
+setTimeout(()=>{word.remove();},5000);
+}
+setInterval(createWord,1000);
+
+/* sparkles */
+function createSparkle(){
+const sparkle=document.createElement("div");
+sparkle.classList.add("sparkle");
+sparkle.innerHTML="✨";
+sparkle.style.left=Math.random()*100+"vw";
+sparkle.style.top=Math.random()*100+"vh";
+sparkle.style.fontSize=(Math.random()*15+8)+"px";
+document.body.appendChild(sparkle);
+setTimeout(()=>{sparkle.remove();},2000);
+}
+setInterval(createSparkle,300);
+
+/* special surprise button */
+function specialSurprise(){
+/* confetti again */
+const colors=["#ff4d6d","#ffbe0b","#3a86ff","#ff006e","#8338ec","#fb5607"];
+for(let i=0;i<200;i++){
+const confetti=document.createElement("div");
+confetti.className="confetti";
+confetti.style.left=Math.random()*100+"vw";
+confetti.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+confetti.style.animationDelay=(Math.random()*0.5)+"s";
+document.body.appendChild(confetti);
+setTimeout(()=>{confetti.remove();},3000);
+}
+/* fireworks bursts */
+for(let i=0;i<5;i++){
+const firework=document.createElement("div");
+firework.className="confetti";
+firework.style.width="15px";
+firework.style.height="15px";
+firework.style.borderRadius="50%";
+firework.style.left=Math.random()*100+"vw";
+firework.style.top=Math.random()*50+"vh";
+firework.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+firework.style.animation="confettiFall 2s linear forwards";
+document.body.appendChild(firework);
+setTimeout(()=>{firework.remove();},2000);
+}
+
+/* final popup */
+const final=document.createElement("div");
+final.className="finalPopup";
+final.innerHTML="You are truly special to me Cutie❤️";
+document.body.appendChild(final);
+setTimeout(()=>{final.remove();},5000);
+}
+
+/* image zoom */
+const galleryItems=document.querySelectorAll(".gallery-item img,.gallery-item video");
+galleryItems.forEach(item=>{
+item.addEventListener("click",()=>{
+const overlay=document.createElement("div");
+overlay.style.position="fixed";
+overlay.style.top="0";overlay.style.left="0";
+overlay.style.width="100%";overlay.style.height="100%";
+overlay.style.background="rgba(0,0,0,0.85)";
+overlay.style.display="flex";
+overlay.style.justifyContent="center";
+overlay.style.alignItems="center";
+overlay.style.zIndex="99999";
+const clone=item.cloneNode(true);
+clone.style.width="80%";
+clone.style.height="80%";
+clone.style.objectFit="contain";
+clone.style.borderRadius="12px";
+overlay.appendChild(clone);
+overlay.addEventListener("click",()=>{overlay.remove();});
+document.body.appendChild(overlay);
+});
+});
+</script>
+</body>
+</html>
